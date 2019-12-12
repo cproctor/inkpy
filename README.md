@@ -8,22 +8,25 @@ Implements the Ink Runtime [v0.3.3](https://github.com/inkle/ink/tree/0.3.3/ink-
 - call_stack
 - choice
 - choice_point
-- container
 - control_command
 - divert
-- glue
-- i_named_content
 - json_serialization
 - native_function_call
-- object
-- path
-- push_pop
+- push_pop (Depends on Tunnel, Function)
 - story
-- story_exception
 - story_state
 - string_join_extension
 - value
 - variable_assignment
 - variable_reference
 - varialbes_state
-- void
+
+# Testing TODO
+
+- object
+- container
+
+Next up: Write tests for Container
+
+## Notes
+I skipped some Container type casts in Object and Container. These may be important. 
