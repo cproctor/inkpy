@@ -3,6 +3,12 @@
 from typing import Optional, Iterable, Union
 
 class Component:
+
+    # Returns a component indicating the component's parent
+    @classmethod
+    def to_parent(cls) -> 'Component':
+        return Component(name=Path.parent_id)
+
     def __init__(self, path:Optional['Path']=None, index:Optional[int]=None, name:Optional[str]=None):
         if index is None and name is None:
             raise ValueError("Component must be initialized with index or name")
@@ -16,10 +22,7 @@ class Component:
         return self.index is not None
 
     def is_parent(self) -> bool:
-        return self.name == self.path.parent_id
-
-    def to_parent(self) -> 'Component':
-        return Component(self.path, name=self.path.parent_id)
+        return self.name == Path.parent_id
 
     def __str__(self) -> str:
         return str(self.index if self.is_index() else self.name)
@@ -35,14 +38,29 @@ class Component:
     def __ne__(self, other) -> bool:
         return not self == other
 
+    def __hash__(self):
+        return hash(self.index if self.is_index() else self.name)
+
 class Path:
-    parent_id = "^"
+    parent_id = '^'
+
+    # Returns a Path to oneself (eg '.' in shell)
+    @classmethod
+    def self(cls):
+        return Path(relative=True)
+
+    # Not in 0.3.3, but in Master.
+    def get_component(self, index:int) -> Component:
+        return self.components[index]
      
     def head(self) -> Optional[Component]:
         return self.components[0] if len(self.components) else None
 
     def tail(self) -> 'Path':
-        return Path(components=self.components[1:])
+        if len(self) >= 2:
+            return Path(components=self.components[1:])
+        else:
+            return Path.self()
 
     def __len__(self) -> int:
         return len(self.components)
@@ -106,6 +124,9 @@ class Path:
         if len(self.components) != len(other.components):
             return False
         return all(sc == oc for sc, oc in zip(self.components, other.components))
+
+    def __hash__(self):
+        return hash(tuple(hash(c) for c in self.components))
 
     
 
