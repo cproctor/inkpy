@@ -8,3 +8,6 @@ class TestDebugMetadata(TestCase):
         dm.start_line_number = 12
         dm.file_name = "file.txt"
         self.assertEqual(str(dm), "line 12 of file.txt")
+
+if __name__ == '__main__':
+    unittest.main()
