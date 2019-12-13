@@ -109,6 +109,8 @@ class Path:
             if segments[0] == '':
                 self.is_relative = True
                 segments = segments[1:]
+            else:
+                self.is_relative = False
             for seg in segments:
                 if seg.isdigit():
                     self.components.append(Component(self, index=int(seg)))
