@@ -16,11 +16,11 @@ Implements the Ink Runtime [v0.3.3](https://github.com/inkle/ink/tree/0.3.3/ink-
 - story
 - story_state
 - string_join_extension
-- variable_assignment
-- variable_reference
 - varialbes_state
 
 # Testing TODO
+- variable_reference
+- variable_assignment
 
 # IN PROCESS
 
